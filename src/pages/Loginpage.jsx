@@ -33,7 +33,7 @@ const  Loginpage=()=>{
     // const REDIRECT_URI = 'http://localhost:5173/kakao/login';
     //배포용
     const REDIRECT_URI = 'http://43.200.156.57:5173/kakao/login';
-    const KAKAO_AUTH_URI = `http://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const loginHandler = () => {
         window.location.href = KAKAO_AUTH_URI;
