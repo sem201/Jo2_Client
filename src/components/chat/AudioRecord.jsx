@@ -41,6 +41,13 @@ const AudioRecord = () => {
         }
         catch(error){console.log(error)};
     }
+    const handlemessageend = async()=>{
+        try{
+            const response = await apiCallai('/api/chatbot/end',"POST",null);
+            console.log('end response',response);
+        }
+        catch(error){console.log(error)}
+    }
 
     const onRecAudio = () => {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -140,6 +147,7 @@ const AudioRecord = () => {
                     녹음된 파일 다운로드
                 </a>
             )}
+            <button onClick={handlemessageend}>채팅 종료</button>
         </>
     );
 };
