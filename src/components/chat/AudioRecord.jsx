@@ -18,6 +18,7 @@ const AudioRecord = () => {
                 {"user_id":2024}
             );
             console.log('reponse:',response);
+            console.log("쿠카2",document.cookie);
         }
         catch(error){console.log(error)}
     }
