@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from "react";
 import apiCallai from "../../api/ApiAi";
+import Recorder from 'recorder-js';
 
 const AudioRecord = () => {
     const [message, setMessage] = useState("");
     const [stream, setStream] = useState(null);
-    const [media, setMedia] = useState(null);
+    const [recorder, setRecorder] = useState(null);
     const [onRec, setOnRec] = useState(false);
     const [source, setSource] = useState(null);
     const [analyser, setAnalyser] = useState(null);
@@ -12,42 +13,45 @@ const AudioRecord = () => {
     const [startTime, setStartTime] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState(null);
 
-    const handleButton=async()=>{
-        try{
-            const response = await apiCallai('/api/chatbot/start','POST',
-                {"user_id":2024}
-            );
-            console.log('reponse:',response);
-            console.log("쿠카2",document.cookie);
+    const handleButton = async () => {
+        try {
+            const response = await apiCallai('/api/chatbot/start', 'POST', {"user_id":2024});
+            console.log('response:', response);
+            console.log("쿠카2", document.cookie);
+        } catch (error) {
+            console.log(error);
         }
-        catch(error){console.log(error)}
-    }
+    };
 
-    const handlemessage = async()=>{
-        try{
-            const response = await apiCallai('/api/chatbot/chat',"POST",
-                {"message":message}
-            );
-            console.log('response:',response);
+    const handlemessage = async () => {
+        try {
+            const response = await apiCallai('/api/chatbot/chat', "POST", {"message": message});
+            console.log('response:', response);
+        } catch (error) {
+            console.log(error);
         }
-        catch(error){console.log(error)};
-    }
-    const handlevoicemessage = async()=>{
-        try{
-            const response = await apiCallai('/api/chatbot/voice',"POST",
-                {"audio":message}
-            );
-            console.log('response:',response);
+    };
+
+    const handlevoicemessage = async (audioBlob) => {
+        try {
+            const formData = new FormData();
+            formData.append("audio", audioBlob, "recording.wav");
+
+            const response = await apiCallai('/api/chatbot/voice', "POST", formData);
+            console.log('response:', response);
+        } catch (error) {
+            console.log(error);
         }
-        catch(error){console.log(error)};
-    }
-    const handlemessageend = async()=>{
-        try{
-            const response = await apiCallai('/api/chatbot/end',"POST",null);
-            console.log('end response',response);
+    };
+
+    const handlemessageend = async () => {
+        try {
+            const response = await apiCallai('/api/chatbot/end', "POST", null);
+            console.log('end response', response);
+        } catch (error) {
+            console.log(error);
         }
-        catch(error){console.log(error)}
-    }
+    };
 
     const onRecAudio = () => {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -62,10 +66,11 @@ const AudioRecord = () => {
         }
 
         navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-            const mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.start();
+            const input = audioCtx.createMediaStreamSource(stream);
+            const newRecorder = new Recorder(input, { numChannels: 1 });
+            newRecorder.record();
             setStream(stream);
-            setMedia(mediaRecorder);
+            setRecorder(newRecorder);
             makeSound(stream);
             setStartTime(audioCtx.currentTime);
 
@@ -80,29 +85,27 @@ const AudioRecord = () => {
             };
 
             requestAnimationFrame(checkRecordingTime);
-
-            mediaRecorder.ondataavailable = function (e) {
-                setAudioUrl(e.data);
-                setOnRec(false);
-                handlevoicemessage(e.data);
-            };
         });
     };
 
     const offRecAudio = () => {
-        media.ondataavailable = function (e) {
-            setAudioUrl(e.data);
-            setOnRec(false);
-            handlevoicemessage(e.data);
-        };
+        if (recorder) {
+            recorder.stop();
+            recorder.exportWAV((audioBlob) => {
+                setAudioUrl(audioBlob);
+                setOnRec(false);
+                handlevoicemessage(audioBlob);
+            });
+        }
 
-        stream.getAudioTracks().forEach(function (track) {
-            track.stop();
-        });
+        if (stream) {
+            stream.getAudioTracks().forEach(function (track) {
+                track.stop();
+            });
+        }
 
-        media.stop();
-        analyser.disconnect();
-        source.disconnect();
+        if (analyser) analyser.disconnect();
+        if (source) source.disconnect();
     };
 
     const onSubmitAudioFile = useCallback(() => {
@@ -113,7 +116,7 @@ const AudioRecord = () => {
             console.log(downloadUrl); // 다운로드 가능한 링크 출력
             const sound = new File([audioUrl], "soundBlob", {
                 lastModified: new Date().getTime(),
-                type: "audio"
+                type: "audio/wav"
             });
             console.log(sound); // File 정보 출력
         }
