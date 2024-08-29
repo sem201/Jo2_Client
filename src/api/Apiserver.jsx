@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const APISERVER = axios.create({
-    baseURL: 'http://52.79.169.5:8080'
+    baseURL: 'https://api.joyfully.o-r.kr'
 });
 
 // API 호출 함수

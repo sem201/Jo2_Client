@@ -7,8 +7,6 @@ const AudioRecord = () => {
     const [stream, setStream] = useState(null);
     const [recorder, setRecorder] = useState(null);
     const [onRec, setOnRec] = useState(false);
-    const [source, setSource] = useState(null);
-    const [analyser, setAnalyser] = useState(null);
     const [audioUrl, setAudioUrl] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState(null);
@@ -17,7 +15,6 @@ const AudioRecord = () => {
         try {
             const response = await apiCallai('/api/chatbot/start', 'POST', {"user_id":2024});
             console.log('response:', response);
-            console.log("쿠카2", document.cookie);
         } catch (error) {
             console.log(error);
         }
@@ -55,70 +52,63 @@ const AudioRecord = () => {
 
     const onRecAudio = () => {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioCtx.createAnalyser();
-        setAnalyser(analyser);
+        setStream(null); // 이전 스트림 제거
+        
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                setStream(stream);
+                const newRecorder = new Recorder(audioCtx);
+                const input = audioCtx.createMediaStreamSource(stream);
+                
+                newRecorder.init(input)
+                    .then(() => {
+                        newRecorder.start();
+                        setRecorder(newRecorder);
+                        setStartTime(audioCtx.currentTime);
+                        setOnRec(true);
 
-        function makeSound(stream) {
-            const source = audioCtx.createMediaStreamSource(stream);
-            setSource(source);
-            source.connect(analyser);
-            analyser.connect(audioCtx.destination);
-        }
+                        const checkRecordingTime = () => {
+                            if (audioCtx.currentTime - startTime > 120) {
+                                offRecAudio();
+                            } else {
+                                requestAnimationFrame(checkRecordingTime);
+                            }
+                        };
 
-        navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-            const input = audioCtx.createMediaStreamSource(stream);
-            const newRecorder = new Recorder(input, { numChannels: 1 });
-            newRecorder.record();
-            setStream(stream);
-            setRecorder(newRecorder);
-            makeSound(stream);
-            setStartTime(audioCtx.currentTime);
-
-            setOnRec(true);
-
-            const checkRecordingTime = () => {
-                if (audioCtx.currentTime - startTime > 120) {
-                    offRecAudio();
-                } else {
-                    requestAnimationFrame(checkRecordingTime);
-                }
-            };
-
-            requestAnimationFrame(checkRecordingTime);
-        });
+                        requestAnimationFrame(checkRecordingTime);
+                    })
+                    .catch(error => {
+                        console.error("Error initializing recorder:", error);
+                    });
+            })
+            .catch(error => {
+                console.error("Error accessing media devices:", error);
+            });
     };
 
     const offRecAudio = () => {
         if (recorder) {
-            recorder.stop();
-            recorder.exportWAV((audioBlob) => {
-                setAudioUrl(audioBlob);
-                setOnRec(false);
-                handlevoicemessage(audioBlob);
-            });
+            recorder.stop()
+                .then(({blob}) => {
+                    setAudioUrl(blob);
+                    setOnRec(false);
+                    handlevoicemessage(blob);
+                })
+                .catch(error => {
+                    console.error("Error stopping recorder:", error);
+                });
         }
 
         if (stream) {
-            stream.getAudioTracks().forEach(function (track) {
-                track.stop();
-            });
+            stream.getAudioTracks().forEach(track => track.stop());
         }
-
-        if (analyser) analyser.disconnect();
-        if (source) source.disconnect();
     };
 
     const onSubmitAudioFile = useCallback(() => {
         if (audioUrl) {
             const downloadUrl = URL.createObjectURL(audioUrl);
             setDownloadUrl(downloadUrl);
-
-            console.log(downloadUrl); // 다운로드 가능한 링크 출력
-            const sound = new File([audioUrl], "soundBlob", {
-                lastModified: new Date().getTime(),
-                type: "audio/wav"
-            });
-            console.log(sound); // File 정보 출력
+            console.log(downloadUrl);
         }
     }, [audioUrl]);
 
