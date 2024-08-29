@@ -5,7 +5,7 @@ import chat from "../../assets/chat.png";
 import chart from "../../assets/chart.png";
 import mypage from "../../assets/mypage.png";
 import { Link, useNavigate } from "react-router-dom";
-import apiCall from "../../api/Apiserver";
+import apiCallai from "../../api/ApiAi";
 import { getToken } from "../../utils/auth";
 
 const Footer = () => {
@@ -14,7 +14,7 @@ const Footer = () => {
         const token=getToken();
         console.log(token);
         try {
-            const response = await apiCall('/api/v1/chat-server', "Post", null,token);
+            const response = await apiCallai('/api/chatbot/start', "Post", {"user_id":2024});
             console.log('response:', response);
             navigate('/chat', { state: { responseData: response.data } });
         } catch (error) {

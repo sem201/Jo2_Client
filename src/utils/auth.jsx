@@ -9,3 +9,7 @@ export const getRefreshToken=()=>{
 export const getUserInfo=()=>{
     return localStorage.getItem('nickname')
 }
+
+export const getUserId=()=>{
+    return localStorage.getItem('memberId')
+}

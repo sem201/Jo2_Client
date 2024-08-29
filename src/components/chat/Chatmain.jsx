@@ -1,18 +1,20 @@
 import React from "react";
 import * as S from "./style";
 
-const Chatmain = ({ messages, aiMessages }) => {
+const Chatmain = ({ messages }) => {
+    console.log("메시지들",messages)
     return (
         <S.ChatContainer>
-            {aiMessages.map((aiMsg, index) => (
-                <S.AimessageContainer key={`ai-${index}`}>
-                    <S.chattingAi>{aiMsg}</S.chattingAi>
-                </S.AimessageContainer>
-            ))}
             {messages.map((msg, index) => (
-                <S.UsermessageContainer key={`user-${index}`}>
-                    <S.ChattingUser>{msg}</S.ChattingUser>
-                </S.UsermessageContainer>
+                msg.type === 'ai' ? (
+                    <S.AimessageContainer key={`ai-${index}`}>
+                        <S.chattingAi>{msg.text}</S.chattingAi>
+                    </S.AimessageContainer>
+                ) : (
+                    <S.UsermessageContainer key={`user-${index}`}>
+                        <S.ChattingUser>{msg.text}</S.ChattingUser>
+                    </S.UsermessageContainer>
+                )
             ))}
         </S.ChatContainer>
     );
