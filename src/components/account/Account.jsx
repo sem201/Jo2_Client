@@ -42,7 +42,6 @@ const Account = () => {
                     console.error('Invalid token response');
                     return; 
                 }
-
             } catch (error) {
                 console.error('토큰 획득 실패:', error);
             }
