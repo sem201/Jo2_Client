@@ -11,7 +11,6 @@ const YoutubeGuide=()=>{
         const fetchData=async()=>{
             try{
                 const response = await apiCall('/api/v1/contents/video-links',"GET",null,token);
-                console.log(response.data.data.cards);
                 setData(response.data.data.cards);
             }
             catch(error){

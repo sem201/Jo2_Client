@@ -6,16 +6,14 @@ import chart from "../../assets/chart.png";
 import mypage from "../../assets/mypage.png";
 import { Link, useNavigate } from "react-router-dom";
 import apiCallai from "../../api/ApiAi";
-import { getToken } from "../../utils/auth";
+import { getUserId } from "../../utils/auth";
 
 const Footer = () => {
     const navigate = useNavigate();
     const handleButton = async () => {
-        const token=getToken();
-        console.log(token);
+        const memberId = getUserId();
         try {
-            const response = await apiCallai('/api/chatbot/start', "Post", {"user_id":2024});
-            console.log('response:', response);
+            const response = await apiCallai('/api/chatbot/start', "Post", {"user_id":memberId});
             navigate('/chat', { state: { responseData: response.data } });
         } catch (error) {
             console.log(error);
