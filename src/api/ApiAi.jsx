@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const APIAi = axios.create({
-    baseURL: 'https://3.34.120.240:5000',
+    baseURL: 'https://aigo-api.duckdns.org',
     withCredentials: true,
 });
 const getCookie = (name) => {
@@ -21,7 +21,7 @@ const apiCallai = async (url, method = 'get', data = null) => {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
-                'Cookie': `session=${token}`,
+                // 'Cookie': `session=${token}`,
             },
         };
 
