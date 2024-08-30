@@ -9,10 +9,12 @@ const ChattingBar = ({ addMessage}) => {
     const textareaRef = useRef(null);
     const [isRecording,setIsRecording] = useState(false);
     const [isSending, setIsSending] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
 
     const handleReconding = async()=>{
+        if (isProcessing) return;
         if(!isRecording){
             try{
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -31,18 +33,45 @@ const ChattingBar = ({ addMessage}) => {
                 const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
                 audioChunksRef.current = [];
                 setIsRecording(false);
-
+                setIsProcessing(true);
+                
                 try {
                     const formData = new FormData();
                     formData.append("audio", audioBlob, "recording.wav");
-                    const response = await apiCallai('/api/chatbot/voice', "POST", formData);
-                    console.log('response:', response);
+                    console.log("formdata:",formData)
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}:`, value);
+                    }
+                    const response = await apiCallai('/api/chatbot/voice', "POST", formData,{
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        }
+                    });
+                    const recognizedText = response.data.recognizedText;
+                    const aiResponseMessage = response.data.response.response;
+                    console.log('음성인식 결과:', response.data.recognizedtext); //내 음성인식 결과
+                    console.log('응답:',response.data.response.response); // gpt 응답
+                    addMessage(recognizedText, 'user');
+                    addMessage(aiResponseMessage, 'ai');
+                    speakText(aiResponseMessage);
                 } catch (error) {
                     console.log(error);
+                }finally{
+                    setIsProcessing(false);
                 }
             }   
         }
     }
+    const speakText = (text) => {
+        if ('speechSynthesis' in window) {
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = 'ko-KR';
+            window.speechSynthesis.speak(speech);
+        } else {
+            console.error('TTS 기능을 지원하지 않는 브라우저입니다.');
+        }
+    };
+
     const handleResizeHeight = () => {
         const textarea = textareaRef.current;
         textarea.style.height = '30px';
@@ -50,9 +79,11 @@ const ChattingBar = ({ addMessage}) => {
     };
 
     const sendMessage = async () => {
+        if (isProcessing) return;
         const message = textareaRef.current.value;
         if (message.trim()) {
             setIsSending(true);
+            setIsProcessing(true)
             addMessage(message, 'user');
             textareaRef.current.value = '';
             handleResizeHeight();
@@ -61,10 +92,12 @@ const ChattingBar = ({ addMessage}) => {
                 const response = await apiCallai('/api/chatbot/chat', "POST", { "message":message });
                 const aiResponseMessage = response.data.response;
                 addMessage(aiResponseMessage, 'ai');
+                
             } catch (error) {
                 console.log(error);
             } finally{
                 setIsSending(false);
+                setIsProcessing(false);
             }
         }
     };
@@ -72,7 +105,7 @@ const ChattingBar = ({ addMessage}) => {
     return (
         <S.ChattingContainer>
             <S.recordButton onClick={handleReconding}>
-                <S.recordimg src={isRecording ? recordingImg : record} />
+                <S.recordimg src={isRecording ? recording : record} />
             </S.recordButton>
             <S.messageInput 
                 ref={textareaRef} 
