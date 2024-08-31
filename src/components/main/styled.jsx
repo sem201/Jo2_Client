@@ -172,7 +172,8 @@ export const PhraseForuul2 = styled.p`
     font-size:20px;
     font-weight: 800;
     font-family: Inter;
-    margin:0;
+    margin:0px;
+    line-height: 160%;
 `
 
 // YoutubeGuide 유튜브 링크 예정 ㅇㅇ..

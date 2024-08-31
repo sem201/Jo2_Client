@@ -49,7 +49,7 @@ export const chattingAi = styled.div`
     min-height: 30px;
     background-color: #FFFDF5;
     border-radius: 30px;
-    padding:5px 10px;
+    padding:10px 15px;
     display: flex;
     align-items: center;
     word-break: break-all;
@@ -63,7 +63,7 @@ export const ChattingUser = styled.div`
     background-color: #F8DFB8;
     right:0;
     border-radius: 30px;
-    padding:5px  20px;
+    padding:10px 15px;
     display: inline-block;
     margin-left: 0;
     align-items: center;
@@ -76,10 +76,10 @@ export const ChattingUser = styled.div`
 export const ChattingContainer = styled.div`
     width:100vw;
     min-height:10%;
-    padding:0 1em;
+    padding:0 0.5em;
     display: flex;
     align-items:center;
-    gap:10px;
+    gap:15px;
     position: fixed;
     bottom:0;
     left: 0;
@@ -100,8 +100,8 @@ export const recordimg = styled.img`
 export const messageInput = styled.textarea`
     box-sizing: border-box;
     width:70%;
-    height: 30px;
-    padding:0 1ex;
+    height: 35px;
+    padding:0.5em 0.5em;
     border:0;
     border-radius: 20px;
     background-color: #fff;

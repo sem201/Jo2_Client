@@ -13,8 +13,6 @@ const Phrase=()=>{
             try{
                 const response = await apiCall('/api/v1/contents/main-sentence','GET',null,token);
                 setPhraseData(response.data.data.sentence);
-                console.log(response.data.data.sentence);
-                console.log(response);
             }
             catch(error){
                 console.log("문구 못가져옴",error)

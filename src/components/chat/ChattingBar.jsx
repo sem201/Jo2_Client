@@ -80,7 +80,7 @@ const ChattingBar = ({ addMessage }) => {
 
     const handleResizeHeight = () => {
         const textarea = textareaRef.current;
-        textarea.style.height = '30px';
+        textarea.style.height = '35px';
         textarea.style.height = Math.min(textarea.scrollHeight, 60) + 'px';
     };
 
