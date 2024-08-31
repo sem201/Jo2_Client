@@ -11,6 +11,8 @@ const apiCallai = async (url, method = 'get', data = null) => {
             url,
             method,
             withCredentials: true,
+            // 'Cookie': `session=${token}`
+
         };
 
         if (method.toLowerCase() === 'get') {
