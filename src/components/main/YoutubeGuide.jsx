@@ -3,10 +3,12 @@ import * as S from "./styled";
 import { Link } from "react-router-dom";
 import apiCall from "../../api/Apiserver";
 import { getToken } from "../../utils/auth";
+import { useReissueToken } from "../../api/ApiReissue"
 
 const YoutubeGuide=()=>{
     const token = getToken()
     const [data,setData] = useState([]);
+    const { getReissueToken } = useReissueToken();
     useEffect(()=>{
         const fetchData=async()=>{
             try{
@@ -15,6 +17,9 @@ const YoutubeGuide=()=>{
             }
             catch(error){
                 console.log("error",error)
+                if(error.response.status === 401){
+                    getReissueToken('/main') //page마다 다르게
+                }
             }
         }
         fetchData();

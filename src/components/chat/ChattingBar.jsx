@@ -4,8 +4,11 @@ import send from "../../assets/send.png";
 import apiCallai from "../../api/ApiAi";
 import record from "../../assets/record.png";
 import recording from "../../assets/recording.png";
+import { getToken } from "../../utils/auth";
+import { useReissueToken } from "../../api/ApiReissue";
 
 const ChattingBar = ({ addMessage }) => {
+    const { getReissueToken } = useReissueToken();
     const textareaRef = useRef(null);
     const [isRecording, setIsRecording] = useState(false);
     const [isSending, setIsSending] = useState(false);
@@ -14,6 +17,7 @@ const ChattingBar = ({ addMessage }) => {
     const audioChunksRef = useRef([]);
 
     const handleReconding = async () => {
+        const token = getToken();
         if (isProcessing) return;
         if (!isRecording) {
             try {
@@ -40,7 +44,7 @@ const ChattingBar = ({ addMessage }) => {
                     formData.append("audio", audioBlob, "recording.wav");
                     console.log("formdata:", formData);
 
-                    const response = await apiCallai('/api/chatbot/voice', "POST", formData, {
+                    const response = await apiCallai('/api/chatbot/voice', "POST", formData,token, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         }
@@ -58,6 +62,9 @@ const ChattingBar = ({ addMessage }) => {
                     speakText(aiResponseMessage);
                 } catch (error) {
                     console.log(error);
+                    if(error.response.status === 401){
+                        getReissueToken('/chat') //page마다 다르게
+                    }
                 } finally {
                     setIsProcessing(false);
                 }
@@ -82,6 +89,7 @@ const ChattingBar = ({ addMessage }) => {
     };
 
     const sendMessage = async () => {
+        const token = getToken();
         if (isProcessing) return;
         const message = textareaRef.current.value;
         if (message.trim()) {
@@ -92,7 +100,7 @@ const ChattingBar = ({ addMessage }) => {
             handleResizeHeight();
 
             try {
-                const response = await apiCallai('/api/chatbot/chat', "POST", { "message": message });
+                const response = await apiCallai('/api/chatbot/chat', "POST", { "message": message },token);
                 const aiResponseMessage = response.data.response;
                 
                 // AI 메시지를 상태에 추가 및 TTS 실행
@@ -100,6 +108,9 @@ const ChattingBar = ({ addMessage }) => {
                 speakText(aiResponseMessage);
             } catch (error) {
                 console.log(error);
+                if(error.response.status === 401){
+                    getReissueToken('/chat') //page마다 다르게
+                }
             } finally {
                 setIsSending(false);
                 setIsProcessing(false);

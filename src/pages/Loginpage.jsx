@@ -3,9 +3,7 @@ if (typeof global === 'undefined') {
 }
 import React from "react";
 import styled from "styled-components";
-import google from "../assets/google.png"
-import kakao from "../assets/kakao.png"
-import naver from "../assets/naver.png"
+import kakao from "../assets/kakao.png";
 
 const TitleContainer = styled.div`
     width:100%;
@@ -47,9 +45,7 @@ const  Loginpage=()=>{
                 <Title>Joyfully</Title>
             </TitleContainer>
             <SocialContainer>
-                <Img src={google}/>
                 <Img src={kakao} onClick={loginHandler}/>
-                <Img src={naver}/>
             </SocialContainer>
         </>
     )
