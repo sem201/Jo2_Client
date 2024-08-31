@@ -85,10 +85,21 @@ export const ChattingContainer = styled.div`
     background-color: #F8D49E;
 `
 
+export const recordButton = styled.button`
+    width:30px;
+    height: 30px;
+    background-color: inherit;
+    border:0;
+`
+export const recordimg = styled.img`
+    width:30px;
+    height: 30px;
+`
+
 export const messageInput = styled.textarea`
     box-sizing: border-box;
-    width:80%;
-    height: 20px;
+    width:70%;
+    height: 30px;
     padding:0 1ex;
     border:0;
     border-radius: 20px;
