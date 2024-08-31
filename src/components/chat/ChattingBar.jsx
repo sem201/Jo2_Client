@@ -41,14 +41,10 @@ const ChattingBar = ({ addMessage }) => {
 
                 try {
                     const formData = new FormData();
-                    formData.append("audio", audioBlob, "recording.wav");
+                    formData.append("audio", audioBlob, "recording.wav", "accessToken",token);
                     console.log("formdata:", formData);
 
-                    const response = await apiCallai('/api/chatbot/voice', "POST", formData,token, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                        }
-                    });
+                    const response = await apiCallai('/api/chatbot/voice', "POST", formData,token);
                     const recognizedText = response.data.recognizedText;
                     const aiResponseMessage = response.data.response.response;
                     console.log('음성인식 결과:', recognizedText); // 내 음성인식 결과

@@ -9,6 +9,7 @@ import MyPage from './pages/MyPage';
 import Chatpage from './pages/Chatpage';
 import Account from './components/account/Account'
 import Analysispage from './pages/Analysispage';
+import Test from './components/common/Test';
 
 const router = createBrowserRouter([
     {path: '/',element: <Loginpage/>,},
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     { path: "/kakao/login", element: <Account /> },
     { path: "/mypage", element: <MyPage /> },
     { path : "/analysis", element: <Analysispage/>},
+    { path : "/test", element: <Test/>},
     { path: '*', element: <Navigate to="/main" replace /> },
 ]);
 
