@@ -18,7 +18,6 @@ const router = createBrowserRouter([
     { path: "/kakao/login", element: <Account /> },
     { path: "/mypage", element: <MyPage /> },
     { path : "/analysis", element: <Analysispage/>},
-    { path:'/record',element:<AudioRecord/>},
 ]);
 
 export default router;
