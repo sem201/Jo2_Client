@@ -6,6 +6,7 @@ export const HeadContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
 `
 
 export const Title = styled.div`

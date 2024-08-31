@@ -25,7 +25,7 @@ export const ChatContainer = styled.div`
     width:100%;
 
     margin-top: 50px;
-    max-height:80%;
+    max-height:90%;
     background-color: inherit;
     overflow-y:auto;
     &::-webkit-scrollbar {
