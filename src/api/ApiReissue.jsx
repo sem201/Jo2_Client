@@ -16,7 +16,7 @@ export const useReissueToken = () => {
       .catch((err) => {
         if (err.response.status === 400 || err.response.status === 403) {
           alert("로그인이 필요합니다.");
-          localStorage.clear();
+          localStorage.getItem("accesstoken");
           navigate("/");
         }
       });

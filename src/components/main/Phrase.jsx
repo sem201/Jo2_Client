@@ -18,7 +18,11 @@ const Phrase=()=>{
             }
             catch(error){
                 console.log("문구 못가져옴",error)
+                if(error.response.status === 401){
+                    getReissueToken('/main') //page마다 다르게
+                }
             }
+            
         }
         fetchData();
     },[]);

@@ -17,6 +17,9 @@ const UserInfo=()=>{
             }
             catch(error){
                 console.log("우울증 점수 api 에러 ",error)
+                if(error.response.status === 401){
+                    getReissueToken('/main') //page마다 다르게
+                }
             }
         }
         fetchData();

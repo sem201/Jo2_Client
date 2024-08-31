@@ -5,13 +5,19 @@ export const APIAi = axios.create({
     withCredentials: true,
 });
 
-const apiCallai = async (url, method = 'get', data = null) => {
+const apiCallai = async (url, method = 'get', data = null,token=null) => {
     try {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
         const config = {
             url,
             method,
+            headers,
             withCredentials: true,
-            // 'Cookie': `session=${token}`
 
         };
 

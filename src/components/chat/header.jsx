@@ -3,12 +3,13 @@ import * as S from "./style";
 import back from "../../assets/back.png";
 import apiCallai from "../../api/ApiAi";
 import { useNavigate } from "react-router-dom";
-
+import { getToken } from "../../utils/auth";
 const header=()=>{
+    const token = getToken();
     const navigate=useNavigate()
     const handlewarning =async()=>{
         if (confirm("채팅을 종료하시겠습니까?") == true){
-            const response = await apiCallai('/api/chatbot/end', "POST", null);
+            const response = await apiCallai('/api/chatbot/end', "POST", null,token);
             console.log('채팅종료',response);
             navigate('/main');
         }else{  
