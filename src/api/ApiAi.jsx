@@ -21,6 +21,7 @@ const apiCallai = async (url, method = 'get', data = null) => {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
+
                 // 'Cookie': `session=${token}`,
             },
         };

@@ -1,3 +1,6 @@
+if (typeof global === 'undefined') {
+    window.global = window; // 이 코드가 컴포넌트 외부에 있음
+}
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Loginpage from './pages/Loginpage';
@@ -6,7 +9,6 @@ import Mainpage from './pages/Mainpage';
 import MyPage from './pages/MyPage';
 import Chatpage from './pages/Chatpage';
 import Account from './components/account/Account'
-import AudioRecord from './components/chat/AudioRecord';
 import Analysispage from './pages/Analysispage';
 
 const router = createBrowserRouter([
@@ -14,10 +16,9 @@ const router = createBrowserRouter([
     {path: "/main", element: <Mainpage /> ,},
     { path: "/chat", element: <Chatpage /> },
     { path: "/kakao/login", element: <Account /> },
-    // { path: "/survey", element: <Surveypage /> },
     { path: "/mypage", element: <MyPage /> },
-    { path:'record',element:<AudioRecord/>},
-    { path : "/analysis", element: <Analysispage/>}
+    { path : "/analysis", element: <Analysispage/>},
+    { path:'/record',element:<AudioRecord/>},
 ]);
 
 export default router;
