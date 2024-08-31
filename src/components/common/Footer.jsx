@@ -28,7 +28,7 @@ const Footer = () => {
             <S.Button onClick={handleButton}>
                 <S.NavImg src={chat} />
             </S.Button>
-            <Link to='/chartpage'><S.Button><S.NavImg src={chart} /></S.Button></Link>
+            <Link to='/analysis'><S.Button><S.NavImg src={chart} /></S.Button></Link>
             <Link to='/mypage'><S.Button><S.NavImg src={mypage} /></S.Button></Link>
         </S.FooterContainer>
     );

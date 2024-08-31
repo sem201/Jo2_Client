@@ -40,7 +40,22 @@ const Weather = (props) => {
 
     return (
         <S.MainUserContainer>
-            <S.UserWeatherContainer>
+            {props.weatherList.map((temp, i) => (
+
+            <S.UserWeatherContainer key={i}>
+                {temp.image && (
+                    <S.WeatherState src={temp.image} alt="Weather State" />
+                )}
+                <S.DaysContainer>
+                    <S.UserDay> {temp.day} </S.UserDay>
+                    <S.UserWeatherSum>{temp.result}</S.UserWeatherSum>
+                </S.DaysContainer>
+            </S.UserWeatherContainer>
+            ))}
+        </S.MainUserContainer>
+    );
+};
+{/* <S.UserWeatherContainer>
                 {props.weather.image && (
                     <S.WeatherState src={props.weather.image} alt="Weather State" />
                 )}
@@ -48,9 +63,6 @@ const Weather = (props) => {
                     <S.UserDay> {props.day} </S.UserDay>
                     <S.UserWeatherSum>{props.result}</S.UserWeatherSum>
                 </S.DaysContainer>.
-            </S.UserWeatherContainer>
-        </S.MainUserContainer>
-    );
-};
+            </S.UserWeatherContainer> */}
 
 export default Weather;
