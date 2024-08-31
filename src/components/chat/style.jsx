@@ -49,7 +49,7 @@ export const chattingAi = styled.div`
     min-height: 30px;
     background-color: #FFFDF5;
     border-radius: 30px;
-    padding:0 10px;
+    padding:5px 10px;
     display: flex;
     align-items: center;
     word-break: break-all;
@@ -63,10 +63,11 @@ export const ChattingUser = styled.div`
     background-color: #F8DFB8;
     right:0;
     border-radius: 30px;
-    padding:0 20px;
+    padding:5px  20px;
     display: inline-block;
     margin-left: 0;
     align-items: center;
+    justify-content: center;
     word-break: break-all;
     font-size: 18px;
 `

@@ -16,7 +16,7 @@ const Chatmain = ({ messages }) => {
             {messages.map((msg, index) => (
                 msg.type === 'ai' ? (
                     <S.AimessageContainer key={`ai-${index}`}>
-                        <S.chattingAi>{formatMessage(msg.text)}{msg.text}</S.chattingAi>
+                        <S.chattingAi>{formatMessage(msg.text)}</S.chattingAi>
                     </S.AimessageContainer>
                 ) : (
                     <S.UsermessageContainer key={`user-${index}`}>

@@ -33,9 +33,9 @@ const Img = styled.img`
 const  Loginpage=()=>{
     const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
     //로컬용
-    // const REDIRECT_URI = 'https://localhost:5173/kakao/login';
+    const REDIRECT_URI = 'https://localhost:5173/kakao/login';
     //배포용
-    const REDIRECT_URI = 'https://jo2fully.vercel.app/kakao/login';
+    // const REDIRECT_URI = 'https://jo2fully.vercel.app/kakao/login';
     const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const loginHandler = () => {
