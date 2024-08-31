@@ -172,12 +172,13 @@ export const PhraseForuul2 = styled.p`
     font-size:20px;
     font-weight: 800;
     font-family: Inter;
-    margin:0;
+    margin:0px;
+    line-height: 160%;
 `
 
 // YoutubeGuide 유튜브 링크 예정 ㅇㅇ..
 export const YoutubeGuideContainer = styled.div`
-    min-height: 20%;
+    min-height: 25%;
     display:flex;
     flex-direction: row;
     gap:1em;
@@ -190,7 +191,7 @@ export const YoutubeContainer = styled.div`
     box-sizing: border-box;
     width: 45%; 
     min-width: 48%;
-    height: 80%;
+    height: 70%;
     border-radius: 30px 30px 0 0;
     background-color: #d9d9d9;
     scroll-snap-align: start;
@@ -202,10 +203,11 @@ export const Thumbnail = styled.img`
     border-radius: 30px 30px 0 0;
 `
 export const youtubeTitle = styled.div`
-    font-size: 15px;
+    font-size: 12px;
     font-family: Inter;
+    padding:0 5px;
     font-weight: 600;
-    height: 30px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
