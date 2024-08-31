@@ -101,7 +101,7 @@ const ChattingBar = ({ addMessage }) => {
                 
                 // AI 메시지를 상태에 추가 및 TTS 실행
                 addMessage(aiResponseMessage, 'ai');
-                speakText(aiResponseMessage);
+                // speakText(aiResponseMessage);
             } catch (error) {
                 console.log(error);
                 if(error.response.status === 401){
@@ -113,7 +113,12 @@ const ChattingBar = ({ addMessage }) => {
             }
         }
     };
-
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    };
     return (
         <S.ChattingContainer>
             <S.recordButton onClick={handleReconding} disabled={isSending || isProcessing}>
@@ -121,7 +126,8 @@ const ChattingBar = ({ addMessage }) => {
             </S.recordButton>
             <S.messageInput 
                 ref={textareaRef} 
-                onChange={handleResizeHeight} 
+                onChange={handleResizeHeight}
+                onKeyDown={handleKeyDown}
                 rows="1"
                 disabled={isSending || isProcessing}
             />
