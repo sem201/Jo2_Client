@@ -10,6 +10,9 @@ const apiCallai = async (url, method = 'get', data = null,token=null) => {
         const headers = {
             'Content-Type': 'application/json'
         };
+        if (url.includes('/chatbot/voice')) {
+            headers['Content-Type'] = 'multipart/form-data';
+        }
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
