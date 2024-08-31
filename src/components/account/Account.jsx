@@ -14,7 +14,7 @@ const Account = () => {
     useEffect(() => {
         const fetchToken = async () => {
             try {
-                const response = await fetch('https://52.79.169.5:8080/api/v1/auth/sign-in?authorizationCode=' + code, {
+                const response = await fetch('https://api.joyfully.o-r.kr/api/v1/auth/sign-in?authorizationCode=' + code, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

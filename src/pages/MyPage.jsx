@@ -11,6 +11,7 @@ import sunny from "../assets/sunny.png"
 import cloudy from "../assets/cloudy.png"
 import rain from "../assets/rain.png"
 import sncloud from "../assets/sncloud.png"
+import { useReissueToken } from "../api/ApiReissue";
 
 const getWeatherImage = (score) => {
     if (score < 15) {
@@ -32,6 +33,8 @@ const MyPage=()=>{
     const [weather, setWeather] = useState({ image: null }); // State to hold weather info
     const [result, setResult] = useState('');
     const [day, setDay] = useState('');
+    const { getReissueToken } = useReissueToken();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,6 +52,9 @@ const MyPage=()=>{
 
             } catch (error) {
                 console.log("날씨 에러", error);
+                if(error.response.status === 401){
+                    getReissueToken('/mypage') //page마다 다르게
+                }
             }
         };
         fetchData();
