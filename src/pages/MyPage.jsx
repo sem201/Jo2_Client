@@ -16,13 +16,13 @@ import sncloud from "../assets/sncloud.png";
 
 const getWeatherImage = (score) => {
     if (score < 20) {
-        return rain;
-    } else if (score >= 20 && score < 50) {
-        return cloudy;
-    } else if (score >= 50 && score < 80) {
-        return sncloud;
-    } else if (score >= 80 && score < 100) {
         return sunny;
+    } else if (score >= 20 && score < 50) {
+        return sncloud;
+    } else if (score >= 50 && score < 80) {
+        return cloudy;
+    } else if (score >= 80 && score < 100) {
+        return rain;
     } else {
         return sunny;
     }
