@@ -7,7 +7,11 @@ export const RecentWeatherContainer = styled.div`
     height : 120px;
     background-color : #fff;
     border-radius : 20px;
-    overflow: hidden;
+    overflow: x;
+    padding: 0 20px;
+    
+
+
 `
 export const RecentWeatherState = styled.img`
     display: block;
@@ -53,9 +57,10 @@ export const AnalysisContainer=styled.div`
 
 export const MainUserContainer= styled.div`
     width:100%;
-    height : 35%;
+    max-height : 55%;
     flex-wrap : wrap;
     gap : 20px;
+    overflow: auto;
 `
 export const UserWeather = styled.img`
     width: 320px;
@@ -108,12 +113,18 @@ export const FeelingWeatherContainer = styled.div`
     display: flex;
 `
 export const UserText = styled.p`
-    display: block;
     font-size: 45px;
     font-weight: bold;
     font-family: Inter;
     margin:0;
-    padding: 0 0 0.5em 0.2em;
+    padding: 0;
+`
+
+export const UserInfoContainer = styled.div`
+    display : flex;
+    align-items : center;
+    padding : 0;
+    margin: 0;
 `
 
 export const HelloText=styled.p`
@@ -139,9 +150,11 @@ export const UserStateContainer = styled.div`
 `
 
 export const UserState = styled.img`
-    width:62px;
-    height: 62px;
-    padding-right: 1.5em;
+    width:35px;
+    height: 35px;
+    margin-left : 10px;
+    background-position : ${(props) => props.position}
+
 `
 export const UserRecommend = styled.p`
     display: flex;

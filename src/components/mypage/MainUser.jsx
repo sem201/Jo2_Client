@@ -2,6 +2,9 @@ import React from "react";
 import * as S from "../main/styled";
 import sunny from "../../assets/sunny.png"
 import { getToken,getUserInfo } from "../../utils/auth";
+import rain from "../../assets/rain.png"
+import sncloud from "../../assets/sncloud.png"
+import cloudy from "../../assets/cloudy.png"
 
 const UserInfo =()=>{
     const token = getToken();
@@ -12,58 +15,29 @@ const UserInfo =()=>{
 
 const MainUser = (props) => {
     const name = UserInfo();
+    console.log("프롭스오류",props.weatherImageList);
     return(
         <S.MainUserContainer>
-            <S.UserText> {name}님! </S.UserText>
-            <S.FeelingWeatherContainer>    
-                <S.UserState src={sunny}/> 
+            <S.UserInfoContainer>
+                <S.UserText> {name}님! </S.UserText> 
+            <S.UserState src = {props.weatherImageList[0]?.image} alt="Use weather icon"/>
+            </S.UserInfoContainer>
+            <S.FeelingWeatherContainer>
                 <S.UserRecommend> {name}님의 최근기분날씨</S.UserRecommend>
             </S.FeelingWeatherContainer>
             <S.RecentWeatherContainer>
-                <S.RecentWeather>
+                {props.weatherImageList.map((temp, i) => (
+                    <S.RecentWeather key={i}>  
                     <S.RecentTextContainer>
-                    월
+                    ${temp.day}
                     </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/> 
+                    <S.RecentWeatherState src={temp.image}/> 
                 </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    화
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    수
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    목
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    금
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    토
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
-                <S.RecentWeather>
-                    <S.RecentTextContainer>
-                    일
-                    </S.RecentTextContainer>
-                    <S.RecentWeatherState src={sunny}/>
-                </S.RecentWeather>
+                ))}
+                
             </S.RecentWeatherContainer>
         </S.MainUserContainer>
+        
     )
 }
 

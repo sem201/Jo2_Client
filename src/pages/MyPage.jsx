@@ -4,73 +4,69 @@ if (typeof global === 'undefined') {
 }
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-//import styled from "styled-components";
 import MainUser from "../components/mypage/MainUser";
 import Summary from "../components/mypage/Summary";
 import { getToken } from "../utils/auth";
-import { Link } from "react-router-dom";
 import apiCall from "../api/Apiserver";
-import sunny from "../assets/sunny.png"
-import cloudy from "../assets/cloudy.png"
-import rain from "../assets/rain.png"
-import sncloud from "../assets/sncloud.png"
 import { useReissueToken } from "../api/ApiReissue";
+import sunny from "../assets/sunny.png";
+import cloudy from "../assets/cloudy.png";
+import rain from "../assets/rain.png";
+import sncloud from "../assets/sncloud.png";
 
 const getWeatherImage = (score) => {
-    if (score < 15) {
-        return { image: rain};
-    } else if (score >= 15 && score<20) {
-        return { image: cloudy};
-    } else if (score >= 20 && score< 25) {
-        return { image: sncloud };
-    } else if (score >= 25 && score< 30) {
-        return { image: sunny };
+    if (score < 20) {
+        return rain;
+    } else if (score >= 20 && score < 50) {
+        return cloudy;
+    } else if (score >= 50 && score < 80) {
+        return sncloud;
+    } else if (score >= 80 && score < 100) {
+        return sunny;
     } else {
-        return { image: sunny};
+        return sunny;
     }
 };
 
-const MyPage=()=>{
+const MyPage = () => {
     const token = getToken(); // Auth token retrieval
-    const [score, setScore] = useState(null); // State to hold the score
-    const [weather, setWeather] = useState({ image: null }); // State to hold weather info
-    const [result, setResult] = useState('');
-    const [day, setDay] = useState('');
     const { getReissueToken } = useReissueToken();
-
+    const [weatherList, setWeatherList] = useState([]); // Combined state for weather list
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await apiCall('/api/v1/weather', "GET", null, token);
-                console.log("api response", response);
-                const fetchedScore = response.data.data.recentWeathers[0].scoreVO.score; // Assuming the score is in this location
-                console.log("fetched score",fetchedScore);
-                setScore(fetchedScore); // Set the score state
-                setWeather(getWeatherImage(fetchedScore)); // Update weather state based on score
-                const fetchedResult = response.data.data.recentWeathers[0].result;
-                setResult(fetchedResult);
-                const fetchedDay = response.data.data.recentWeathers[0].dayOfWeek;
-                setDay(fetchedDay);
+                console.log("API response", response);
+                
+                // Parse the response and create a list of weather data
+                const weatherData = response.data.data.recentWeathers.map(temp => ({
+                    image: getWeatherImage(temp.scoreVO.score),
+                    result: temp.result,
+                    day: temp.dayOfWeek
+                }));
 
+                // Update the state with the fetched weather data
+                setWeatherList(weatherData);
             } catch (error) {
                 console.log("날씨 에러", error);
-                if(error.response.status === 401){
-                    getReissueToken('/mypage') //page마다 다르게
+                if (error.response?.status === 401) {
+                    getReissueToken('/mypage');
                 }
             }
         };
+        
         fetchData();
-    }, [token]);
+    }, []); // Add necessary dependencies
 
-    return(
+    return (
         <>
-        <Header/>
-        <Footer/>
-        <MainUser weatherImage={weather.image}/>
-        <Summary weather={weather} day={day} result={result}/>
+            <Header />
+            <MainUser weatherImageList={weatherList} />
+            <Summary weatherList={weatherList} />
+            <Footer />
         </>
-    )
-}
+    );
+};
 
 export default MyPage;
