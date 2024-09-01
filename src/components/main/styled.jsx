@@ -7,8 +7,8 @@ export const RecentWeatherContainer = styled.div`
     height : 120px;
     background-color : #fff;
     border-radius : 20px;
-    overflow: x;
-    padding: 0 20px;
+    overflow: hidden;
+    padding: 0 2.5em 0 0;
     
 
 
@@ -53,11 +53,25 @@ export const AnalysisContainer=styled.div`
     box-shadow: 5px 5px 5px #D9D9D9;
 `
 
+export const AnalysisPageContainer= styled.div`
+    width:100%;
+    height : 80%;
+    flex-wrap : wrap;
+    gap : 20px;
+    overflow: auto;
+`
 
+export const MypageContainer= styled.div`
+    width:100%;
+    max-height : 55%;
+    flex-wrap : wrap;
+    gap : 20px;
+    overflow: auto;
+`
 
 export const MainUserContainer= styled.div`
     width:100%;
-    max-height : 55%;
+    height : 70%;
     flex-wrap : wrap;
     gap : 20px;
     overflow: auto;

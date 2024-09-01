@@ -43,7 +43,7 @@ const MyPage = () => {
                 const weatherData = response.data.data.recentWeathers.map(temp => ({
                     image: getWeatherImage(temp.scoreVO.score),
                     result: temp.result,
-                    day: temp.dayOfWeek
+                    day: temp.date
                 }));
 
                 // Update the state with the fetched weather data

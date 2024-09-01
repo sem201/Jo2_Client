@@ -35,7 +35,7 @@ const Information = () => {
     const name = UserInfo();
 
     return (
-        <S.MainUserContainer>
+        <S.AnalysisPageContainer>
             <S.UserText>{name}님</S.UserText>
             <FullAnalysis setAnalysisData={setAnalysisData} /> {/* 데이터를 가져와서 업데이트 */}
             <S.AnalysisContainer>
@@ -50,7 +50,7 @@ const Information = () => {
                     <p>분석 데이터를 불러오는 중입니다...</p>
                 )}
             </S.AnalysisContainer>
-        </S.MainUserContainer>
+        </S.AnalysisPageContainer>
     );
 };
 

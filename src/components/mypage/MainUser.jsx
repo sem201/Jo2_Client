@@ -17,7 +17,7 @@ const MainUser = (props) => {
     const name = UserInfo();
     console.log("프롭스오류",props.weatherImageList);
     return(
-        <S.MainUserContainer>
+        <S.MypageContainer>
             <S.UserInfoContainer>
                 <S.UserText> {name}님! </S.UserText> 
             <S.UserState src = {props.weatherImageList[0]?.image} alt="Use weather icon"/>
@@ -29,14 +29,14 @@ const MainUser = (props) => {
                 {props.weatherImageList.map((temp, i) => (
                     <S.RecentWeather key={i}>  
                     <S.RecentTextContainer>
-                    ${temp.day}
+                    {temp.day}
                     </S.RecentTextContainer>
                     <S.RecentWeatherState src={temp.image}/> 
                 </S.RecentWeather>
                 ))}
                 
             </S.RecentWeatherContainer>
-        </S.MainUserContainer>
+        </S.MypageContainer>
         
     )
 }
