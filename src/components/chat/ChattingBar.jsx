@@ -110,6 +110,7 @@ const ChattingBar = ({ addMessage }) => {
             } finally {
                 setIsSending(false);
                 setIsProcessing(false);
+                textareaRef.current.focus();
             }
         }
     };

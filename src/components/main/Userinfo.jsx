@@ -40,7 +40,7 @@ const UserInfo=()=>{
         <S.MainUserContainer>
             <S.HelloText>반가워요! {name} 님!</S.HelloText>
             <S.UserStateContainer>
-                <S.UserState src={getWeatherImage()}/>
+                <S.Userstateimage src={getWeatherImage()}/>
                 <S.UserRecommend>{name}님! 오늘은 이런걸 <br/>해보시면 어떨까요?</S.UserRecommend>
             </S.UserStateContainer>
         </S.MainUserContainer>

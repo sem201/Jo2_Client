@@ -9,10 +9,16 @@ export const RecentWeatherContainer = styled.div`
     border-radius : 20px;
     overflow: hidden;
     padding: 0 2.5em 0 0;
-    
-
-
 `
+export const Userstateimage = styled.div`
+    width: 40px;
+    height: 40px;
+    margin-right : 10px;
+    background-position : ${(props) => props.position}
+`
+
+
+
 export const RecentWeatherState = styled.img`
     display: block;
     width:35px;
@@ -39,7 +45,7 @@ export const RecentWeather = styled.div`
 
 export const AnalysisContainer=styled.div`
     width:100%;
-    height: 90%;
+    height: 85%;
     min-height: 400px;
     box-sizing: border-box;
     display:flex;
@@ -51,7 +57,21 @@ export const AnalysisContainer=styled.div`
     padding:3em;
     margin-top: 1em;
     box-shadow: 5px 5px 5px #D9D9D9;
+    position : relative;
 `
+export const AnalysisCaution = styled.p`
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Inter;
+    margin:0;
+    padding: 0;
+    position : absolute;
+    bottom : -30px;
+    right: 0;
+    color : #B2B0BD;
+
+`
+
 
 export const AnalysisPageContainer= styled.div`
     width:100%;
@@ -71,7 +91,7 @@ export const MypageContainer= styled.div`
 
 export const MainUserContainer= styled.div`
     width:100%;
-    max-height : 22%;
+    min-height : 22%;
     flex-wrap : wrap;
     gap : 20px;
     overflow: auto;
@@ -133,6 +153,14 @@ export const UserText = styled.p`
     margin:0;
     padding: 0;
 `
+export const AnalysisText = styled.p`
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Inter;
+    margin:0;
+    padding: 0 0.5em;
+`
+
 
 export const UserInfoContainer = styled.div`
     display : flex;
