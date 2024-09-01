@@ -8,7 +8,7 @@ export const RecentWeatherContainer = styled.div`
     background-color : #fff;
     border-radius : 20px;
     overflow: hidden;
-    padding: 0 2.5em 0 0;
+    margin -top : 1em;
 `
 export const Userstateimage = styled.div`
     width: 40px;
@@ -26,7 +26,7 @@ export const RecentWeatherState = styled.img`
 `
 
 export const RecentTextContainer = styled.p`
-    display : block;
+    display : inline-block;
     text-align: center;
 `
 
@@ -103,8 +103,8 @@ export const UserWeather = styled.img`
 `
 export const UserWeatherContainer = styled.div `
     width : 100%;
-    height : 3%;
-    display:flex;
+    height : 25%;
+    display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #fff;
@@ -114,16 +114,18 @@ export const UserWeatherContainer = styled.div `
     margin-bottom : 20px;
 `
 export const UserWeatherSum = styled.p`
-    font-size:20px;
-    font-weight: 800;
+    font-size:10px;
+    font-weight: 400;
     font-family: Inter;
     margin: 0 0 0.5em 0;
     flex: 1; 
-    text-align: left; 
+    text-align: left;
 `
 export const DaysContainer = styled.div`
     display: block;
     margin-left: 1em;
+    margin-top : 0.4em;
+    
 `
 
 export const UserDay = styled.p`
@@ -131,6 +133,7 @@ export const UserDay = styled.p`
     font-weight : 300;
     font-family : inter;
     margin-bottom: 0;
+    margin-top : 0;
     flex : 0;
     text-align : left;
 `
@@ -145,6 +148,7 @@ export const WeatherState = styled.img`
 
 export const FeelingWeatherContainer = styled.div`
     display: flex;
+    margin-bottom : 1em;
 `
 export const UserText = styled.p`
     font-size: 45px;
@@ -154,7 +158,7 @@ export const UserText = styled.p`
     padding: 0;
 `
 export const AnalysisText = styled.p`
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     font-family: Inter;
     margin:0;
@@ -194,7 +198,7 @@ export const UserStateContainer = styled.div`
 export const UserState = styled.img`
     width:35px;
     height: 35px;
-    margin-left : 10px;
+    margin-left : 20px;
     background-position : ${(props) => props.position}
 
 `
