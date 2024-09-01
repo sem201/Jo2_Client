@@ -39,7 +39,7 @@ const Weather = (props) => {
     console.log(props);
 
     return (
-        <S.MainUserContainer>
+        <S.MypageContainer>
             {props.weatherList.map((temp, i) => (
 
             <S.UserWeatherContainer key={i}>
@@ -52,7 +52,7 @@ const Weather = (props) => {
                 </S.DaysContainer>
             </S.UserWeatherContainer>
             ))}
-        </S.MainUserContainer>
+        </S.MypageContainer>
     );
 };
 {/* <S.UserWeatherContainer>
