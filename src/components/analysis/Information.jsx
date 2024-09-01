@@ -24,7 +24,7 @@ const FullAnalysis = ({ setAnalysisData }) => {
             }
         };
         fetchData();
-    }, [token, setAnalysisData]);
+    }, [token]);
 
     return null; // 이 컴포넌트는 데이터를 가져오고 상태만 업데이트하므로 렌더링하지 않음
 };
@@ -36,19 +36,16 @@ const Information = () => {
 
     return (
         <S.AnalysisPageContainer>
-            <S.UserText>{name}님</S.UserText>
+            <S.AnalysisText>{name}님의 전체분석결과</S.AnalysisText>
             <FullAnalysis setAnalysisData={setAnalysisData} /> {/* 데이터를 가져와서 업데이트 */}
             <S.AnalysisContainer>
-                {analysisData ? (
-                    <div>
-                        <p>분석 결과: {analysisData.result}</p>
-                        <p>분석 ID: {analysisData.analysis_id}</p>
-                        <p>멤버 ID: {analysisData.member_id}</p>
-                        <p>분석 날짜: {new Date(analysisData.date).toLocaleDateString()}</p>
-                    </div>
+                {/* <S.UserRecommend> {name}님의 전체분석결과 </S.UserRecommend> */}
+                {analysisData ? ( /* 조건문 (있냐없냐)*/
+                    <div dangerouslySetInnerHTML={{ __html: `${analysisData.result}` }} />
                 ) : (
                     <p>분석 데이터를 불러오는 중입니다...</p>
                 )}
+                <S.AnalysisCaution>분석은 마지막분석 3일이후에 가능합니다. </S.AnalysisCaution>
             </S.AnalysisContainer>
         </S.AnalysisPageContainer>
     );
