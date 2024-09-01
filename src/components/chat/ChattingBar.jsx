@@ -93,15 +93,15 @@ const ChattingBar = ({ addMessage }) => {
             setIsProcessing(true);
             addMessage(message, 'user');
             textareaRef.current.value = '';
+            textareaRef.current.focus();
+            console.log(textareaRef.current);
             handleResizeHeight();
-
             try {
                 const response = await apiCallai('/api/chatbot/chat', "POST", { "message": message },token);
                 const aiResponseMessage = response.data.response;
                 
                 // AI 메시지를 상태에 추가 및 TTS 실행
                 addMessage(aiResponseMessage, 'ai');
-                // speakText(aiResponseMessage);
             } catch (error) {
                 console.log(error);
                 if(error.response.status === 401){
@@ -110,7 +110,6 @@ const ChattingBar = ({ addMessage }) => {
             } finally {
                 setIsSending(false);
                 setIsProcessing(false);
-                textareaRef.current.focus();
             }
         }
     };

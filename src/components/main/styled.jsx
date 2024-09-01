@@ -10,7 +10,7 @@ export const RecentWeatherContainer = styled.div`
     overflow: hidden;
     padding: 0 2.5em 0 0;
 `
-export const Userstateimage = styled.div`
+export const Userstateimage = styled.img`
     width: 40px;
     height: 40px;
     margin-right : 10px;
@@ -260,7 +260,7 @@ export const Thumbnail = styled.img`
 export const youtubeTitle = styled.div`
     font-size: 12px;
     font-family: Inter;
-    padding:0 5px;
+    padding:0 10px;
     font-weight: 600;
     height: 50px;
     display: flex;
