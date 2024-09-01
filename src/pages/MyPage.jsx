@@ -23,7 +23,8 @@ const getWeatherImage = (score) => {
         return cloudy;
     } else if (score >= 80 && score < 100) {
         return rain;
-    } else {
+    } else if (score===null) return sunny; 
+    else {
         return sunny;
     }
 };
