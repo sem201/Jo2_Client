@@ -1,8 +1,13 @@
-import React from "react";
+import React,{useEffect,useRef} from "react";
 import * as S from "./style";
 
 const Chatmain = ({ messages }) => {
-    console.log("메시지들",messages)
+    const chatContainerRef = useRef(null);
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
     const formatMessage = (text) => {
         return text.split('\n').map((line, index) => (
             <React.Fragment key={index}>
@@ -12,11 +17,11 @@ const Chatmain = ({ messages }) => {
         ));
     };
     return (
-        <S.ChatContainer>
+        <S.ChatContainer ref={chatContainerRef}>
             {messages.map((msg, index) => (
                 msg.type === 'ai' ? (
                     <S.AimessageContainer key={`ai-${index}`}>
-                        <S.chattingAi>{formatMessage(msg.text)}{msg.text}</S.chattingAi>
+                        <S.chattingAi>{formatMessage(msg.text)}</S.chattingAi>
                     </S.AimessageContainer>
                 ) : (
                     <S.UsermessageContainer key={`user-${index}`}>

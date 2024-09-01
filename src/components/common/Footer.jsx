@@ -6,17 +6,23 @@ import chart from "../../assets/chart.png";
 import mypage from "../../assets/mypage.png";
 import { Link, useNavigate } from "react-router-dom";
 import apiCallai from "../../api/ApiAi";
-import { getUserId } from "../../utils/auth";
+import { getToken } from "../../utils/auth";
+import { useReissueToken } from "../../api/ApiReissue";
 
 const Footer = () => {
+    const { getReissueToken } = useReissueToken();
+    const token = getToken();
     const navigate = useNavigate();
     const handleButton = async () => {
-        const memberId = getUserId();
+        console.log("token: ",token);
         try {
-            const response = await apiCallai('/api/chatbot/start', "Post", {"user_id":memberId});
+            const response = await apiCallai('/api/chatbot/start', "Post", null,token);
             navigate('/chat', { state: { responseData: response.data } });
         } catch (error) {
             console.log(error);
+            if(error.response.status === 401){
+                getReissueToken('/chat') //page마다 다르게
+            }
         }
     };
 
