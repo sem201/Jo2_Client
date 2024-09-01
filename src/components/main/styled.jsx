@@ -8,7 +8,7 @@ export const RecentWeatherContainer = styled.div`
     background-color : #fff;
     border-radius : 20px;
     overflow: hidden;
-    margin -top : 1em;
+    margin-top : 1em;
 `
 export const Userstateimage = styled.img`
     width: 40px;
@@ -91,7 +91,7 @@ export const MypageContainer= styled.div`
 
 export const MainUserContainer= styled.div`
     width:100%;
-    min-height : 22%;
+    min-height : 30%;
     flex-wrap : wrap;
     gap : 20px;
     overflow: auto;
