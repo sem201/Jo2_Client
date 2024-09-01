@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const RecentWeatherContainer = styled.div`
     display : flex;
-    justify - content : space-between;
+    justify-content : space-between;
     width : 100%;
     height : 120px;
     background-color : #fff;
@@ -26,13 +26,13 @@ export const RecentTextContainer = styled.p`
 
 export const RecentWeather = styled.div`
     flex : 1;
-    background-size = 700%;
+    background-size : 700%;
     display : block;
-    background-position : ${(props) => props.position}
+    background-position : ${(props) => props.position};
     flex-direction : column;
     align-items : center;
     justify-content : center;
-    font-size = 14px;
+    font-size : 14px;
     color : #000;
     padding : 10px;
 `
@@ -71,7 +71,7 @@ export const MypageContainer= styled.div`
 
 export const MainUserContainer= styled.div`
     width:100%;
-    height : 70%;
+    max-height : 22%;
     flex-wrap : wrap;
     gap : 20px;
     overflow: auto;
@@ -152,7 +152,7 @@ export const HelloText=styled.p`
 
 export const UserStateContainer = styled.div`
     width:100%;
-    height: 40%;
+    height: 30%;
     display:flex;
     flex-direction: row;
     justify-content: center;
