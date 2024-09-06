@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 const Account = () => {
   const navigate = useNavigate();
   //로컬용
-  const REDIRECT_URI = "https://localhost:5173/kakao/login";
+  //   const REDIRECT_URI = "https://localhost:5173/kakao/login";
   //배포용
-  // const REDIRECT_URI = 'https://jo2fully.vercel.app/kakao/login';
+  const REDIRECT_URI = "https://jo2fully.vercel.app/kakao/login";
 
   const code = new URL(window.location.href).searchParams.get("code");
   console.log("code", code);
